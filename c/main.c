@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "linkedlist.h"
 #include "stack.h"
+#include "queue.h"
 
 struct testvector {
 	char name[32];
@@ -12,7 +13,7 @@ static void ll_printint(void* data)
 	printf("print int %d\n", *(int*)data);
 }
 
-int testlinkedlist (void)
+int testlinkedlist(void)
 {
 	int i;
 	struct list *list = NULL;
@@ -26,7 +27,7 @@ int testlinkedlist (void)
 	return 0;
 }
 
-int teststack (void)
+int teststack(void)
 {
 	int i;
 	int n;
@@ -50,9 +51,34 @@ int teststack (void)
 	return 0;
 }
 
+int testqueue(void)
+{
+	int i;
+	int n;
+	struct queue *q = NULL;
+	queue_new(&q, sizeof(int), NULL);
+
+	for(i = 0; i < 3; i++)
+		queue_enqueue(q, &i);
+
+	queue_peek(q, &n);
+	printf("peek queue n=%d\n", n);
+
+	for(i = 0; i < 3; i++)
+	{
+		queue_dequeue(q, &n);
+		printf("dequeue n=%d\n", n);
+		printf("queue size size=%d\n", queue_size(q));
+	}
+
+	queue_destroy(&q);
+	return 0;
+}
+
 struct testvector test[] = {
 	{"test list", testlinkedlist},
 	{"test stack", teststack},
+	{"test queue", testqueue},
 
 };
 
