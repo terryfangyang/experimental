@@ -99,3 +99,25 @@ void list_del(struct list *list, void *element, int (*cmp)(void*, void*))
 
 }
 
+void list_head(struct list *list, void *element, int isRemove)
+{
+	if (list == NULL) return;
+
+	struct node *cur = list->head;
+	memcpy(element, cur->data, list->elementSize);
+
+	if (isRemove) {
+		list->head = cur->next;
+		list->listLength--;
+		free(cur->data);
+		free(cur);
+	}
+}
+
+void list_tail(struct list *list, void *element)
+{
+	if (list == NULL) return;
+
+	struct node *cur = list->tail;
+	memcpy(element, cur->data, list->elementSize);
+}
