@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "linkedlist.h"
+#include "stack.h"
 
 struct testvector {
 	char name[32];
@@ -25,9 +26,33 @@ int testlinkedlist (void)
 	return 0;
 }
 
+int teststack (void)
+{
+	int i;
+	int n;
+	struct stack *s = NULL;
+	stack_new(&s, sizeof(int), NULL);
+
+	for(i = 0; i < 3; i++)
+		stack_push(s, &i);
+
+	stack_peek(s, &n);
+	printf("peek stack n=%d\n", n);
+
+	for(i = 0; i < 3; i++)
+	{
+		stack_pop(s, &n);
+		printf("stack pop n=%d\n", n);
+		printf("stack size size=%d\n", stack_size(s));
+	}
+
+	stack_destroy(&s);
+	return 0;
+}
+
 struct testvector test[] = {
 	{"test list", testlinkedlist},
-	{"test stack", testlinkedlist},
+	{"test stack", teststack},
 
 };
 
