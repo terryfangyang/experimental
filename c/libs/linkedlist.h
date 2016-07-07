@@ -1,3 +1,6 @@
+#ifndef __LIST_H
+#define __LIST_H
+
 struct node {
 	struct node *next;
 	void *data;
@@ -20,3 +23,6 @@ int list_size(struct list *list);
 
 void list_for_each(struct list *list, void (*listIterator)(void*));
 void list_del(struct list *list,void *element, int (*cmp)(void*, void*));
+void list_head(struct list *list, void *element, int isRemove);
+void list_tail(struct list *list, void *element);
+#endif
