@@ -42,3 +42,9 @@ void queue_peek(struct queue *queue, void *element)
 
 	list_head(queue->list, element, 0);
 }
+
+int queue_isempty(struct queue *q)
+{
+	return (queue_size(q) == 0)?1:0;
+
+}

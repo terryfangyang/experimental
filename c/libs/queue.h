@@ -13,6 +13,7 @@ void queue_destroy(struct queue **q);
 void queue_enqueue(struct queue *q, void* elementSize);
 void queue_dequeue(struct queue *q, void* elementSize);
 int queue_size(struct queue *q);
+int queue_isempty(struct queue *q);
 void queue_peek(struct queue *q, void *element);
 
 #endif
