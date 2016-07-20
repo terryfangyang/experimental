@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "linkedlist.h"
 #include "stack.h"
 #include "queue.h"
+#include "graph.h"
 
 struct testvector {
 	char name[32];
@@ -75,11 +77,33 @@ int testqueue(void)
 	return 0;
 }
 
+int testgraph(void)
+{
+	struct graph *g = NULL;
+	int i = 5;
+
+	graph_create(&g, i);
+
+	graph_addEdge(g, 0, 1);
+	graph_addEdge(g, 0, 4);
+	graph_addEdge(g, 1, 2);
+	graph_addEdge(g, 1, 3);
+	graph_addEdge(g, 1, 4);
+	graph_addEdge(g, 2, 3);
+	graph_addEdge(g, 3, 4);
+
+	list_for_each(g->array[1].head, ll_printint);
+	graph_bfs(g, 0);
+	printf("test graph is done \n");
+	graph_destroy(g);
+	return 0;
+}
+
 struct testvector test[] = {
 	{"test list", testlinkedlist},
 	{"test stack", teststack},
 	{"test queue", testqueue},
-
+	{"test graph", testgraph},
 };
 
 int main(int argc, char *argv[])
