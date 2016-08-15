@@ -4,6 +4,7 @@
 #include "stack.h"
 #include "queue.h"
 #include "graph.h"
+#include "tree.h"
 
 struct testvector {
 	char name[32];
@@ -99,11 +100,49 @@ int testgraph(void)
 	return 0;
 }
 
+void testtree1(struct BTree **root, int array[], int left, int right)
+{
+
+	int l,r,mid;
+	if (right < left) return;
+
+	l = left;
+	r = right;
+	mid = (l + r)/2;
+
+	(*root) = (struct BTree*)malloc(sizeof(struct BTree));
+	(*root)->data = array[mid];
+	(*root)->lchild = NULL;
+	(*root)->rchild = NULL;
+	testtree1(&(*root)->lchild, array, l, mid-1);
+	testtree1(&(*root)->rchild, array, mid + 1, right);
+
+	return root;
+}
+
+int testtree(void)
+{
+	//int i;
+	struct BTree *root = NULL;
+	int btarray[] = {1, 2, 3, 4, 5, 6, 7};
+
+#if 0
+	for(i = 0; i < sizeof(btarray)/sizeof(int); i++)
+		bt_insertNode(&root, btarray[i]);
+#endif
+	testtree1(&root, btarray, 0,6);
+	bt_inorder(root);
+	printf("bt deepth is %d\n", bt_depth(root));
+	bt_destroy(root);
+	return 0;
+}
+
 struct testvector test[] = {
 	{"test list", testlinkedlist},
 	{"test stack", teststack},
 	{"test queue", testqueue},
 	{"test graph", testgraph},
+	{"test btree", testtree},
 };
 
 int main(int argc, char *argv[])
